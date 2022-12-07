@@ -8,8 +8,8 @@ namespace Script.Stations
     public class UpgradeStationController : MonoBehaviour
     {
         [SerializeField] private float distance;
-        [SerializeField] private Vector3 stationVector;
-        [SerializeField] private HoldController holdController;
+        //[SerializeField] private Vector3 stationVector;
+        //[SerializeField] private HoldController holdController;
         [SerializeField] private Canvas upgradeCanvas;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private TextMeshProUGUI levelText;
@@ -18,19 +18,19 @@ namespace Script.Stations
 
         private void Awake()
         {
-            holdController = FindObjectOfType<HoldController>();
+            //holdController = FindObjectOfType<HoldController>();
             
-            stationVector = transform.position;
+            //stationVector = transform.position;
             upgradeCanvas.gameObject.SetActive(false);
 
             ChangePrice();
             levelText.text="Level: "+level;
         }
         
-        private void Update()
-        {
-            CheckDistance();
-        }
+        // private void Update()
+        // {
+        //     //CheckDistance();
+        // }
 
         public void Upgrade()
         {
@@ -66,11 +66,11 @@ namespace Script.Stations
         {
             Debug.Log("Ship Upgraded.");
         }
-        private void CheckDistance()
+        /*private void CheckDistance()
         {
             distance = Vector3.Distance(holdController.transform.position, stationVector);
             upgradeCanvas.gameObject.SetActive(distance <= 9f);
-        }//Check Distance between ship and station. TODO: Thinking to put it in StackManager.
+        }*///Check Distance between ship and station. TODO: Thinking to put it in StackManager.
         
     }
 }

@@ -41,6 +41,7 @@ namespace Script.Managers
             }
         }
 
+        //TODO: !!--High Alert--!!Check for floor the money. if you have 1.399 money it is ceiling to 1.4k!!
         private void TextMoney()
         {
             var numberOfZeros = Mathf.FloorToInt(Mathf.Log10(money));
