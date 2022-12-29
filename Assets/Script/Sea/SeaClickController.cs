@@ -9,7 +9,7 @@ namespace Script.Sea
         [SerializeField] private PlayerController playerController;
         [SerializeField] private float range = 1000f;
         public Vector3 destinationVector;
-
+        
         public void OnPointerClick(PointerEventData eventData)
         {
             if (Camera.main == null)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3299310494899305830}
   - component: {fileID: 2025312967764646261}
   m_Layer: 0
-  m_Name: Stack200
+  m_Name: Stack100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,4 +114,4 @@ MonoBehaviour:
   stackNumber: 0
   isHolding: 0
   canHold: 0
-  stackMoney: 100
+  stackMoney: 1000

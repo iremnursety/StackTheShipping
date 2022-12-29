@@ -38,10 +38,11 @@ namespace Script.Managers
                 money += value;
                 TextMoney();
                 textMoney.text = _moneyDigit+multipleMoney[_multipleIndex];
+                //textMoney.text = money.ToString();
             }
         }
 
-        //TODO: !!--High Alert--!!Check for floor the money. if you have 1.399 money it is ceiling to 1.4k!!
+        //TODO: Check for 10k and more.
         private void TextMoney()
         {
             var numberOfZeros = Mathf.FloorToInt(Mathf.Log10(money));
@@ -62,19 +63,14 @@ namespace Script.Managers
                 var tempMoney = Mathf.Pow(10,numberOfZeros);
                 Debug.Log("Temp Money: "+tempMoney);
                 Debug.Log("Temp Digit: "+tempDigit);
-                
-                switch (tempDigit)
+
+                _moneyDigit = tempDigit switch
                 {
-                    case 0:
-                        _moneyDigit = (money/tempMoney).ToString("F1");
-                        break;
-                    case 1:
-                        _moneyDigit = (money/tempMoney).ToString("F1");
-                        break;
-                    case 2:
-                        _moneyDigit = (money/tempMoney).ToString("F1");
-                        break;
-                }
+                    0 => (money / tempMoney).ToString("F1"),
+                    1 => (money / tempMoney).ToString("F1"),
+                    2 => (money / tempMoney).ToString("F1"),
+                    _ => _moneyDigit
+                };
             }
         }
         

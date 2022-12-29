@@ -1,5 +1,4 @@
 using Script.Managers;
-using Script.Player;
 using TMPro;
 using UnityEngine;
 
@@ -7,35 +6,46 @@ namespace Script.Stations
 {
     public class UpgradeStationController : MonoBehaviour
     {
-        [SerializeField] private float distance;
-        //[SerializeField] private Vector3 stationVector;
-        //[SerializeField] private HoldController holdController;
         [SerializeField] private Canvas upgradeCanvas;
         [SerializeField] private TextMeshProUGUI priceText;
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private int level;
         [SerializeField] private int price;
+        [SerializeField] private bool staying;
 
         private void Awake()
         {
-            //holdController = FindObjectOfType<HoldController>();
-            
-            //stationVector = transform.position;
             upgradeCanvas.gameObject.SetActive(false);
 
             ChangePrice();
             levelText.text="Level: "+level;
         }
-        
-        // private void Update()
-        // {
-        //     //CheckDistance();
-        // }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            staying = true;
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (!staying)return;
+            var isActiveCanvas = upgradeCanvas.isActiveAndEnabled;
+
+            if (isActiveCanvas) return;
+            upgradeCanvas.gameObject.SetActive(true);
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!staying) return;
+            staying = false;
+            upgradeCanvas.gameObject.SetActive(false);
+        }
 
         public void Upgrade()
         {
             var money = MoneyManager.Instance.Money;
-            if (money <= price) return;
+            if (money < price) return;
 
             MoneyManager.Instance.Money = -price;
             LevelUp = 1;
@@ -66,11 +76,6 @@ namespace Script.Stations
         {
             Debug.Log("Ship Upgraded.");
         }
-        /*private void CheckDistance()
-        {
-            distance = Vector3.Distance(holdController.transform.position, stationVector);
-            upgradeCanvas.gameObject.SetActive(distance <= 9f);
-        }*///Check Distance between ship and station. TODO: Thinking to put it in StackManager.
         
     }
 }

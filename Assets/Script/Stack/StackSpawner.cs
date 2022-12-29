@@ -9,7 +9,7 @@ namespace Script.Stack
 {
     public class StackSpawner : MonoBehaviour
     {
-        private Coroutine _activeCoroutine;
+        private Coroutine activeCoroutine;
 
         [SerializeField] private int stackNumber,randomPrefab;
         [SerializeField] private List<GameObject> stackPrefabList = new List<GameObject>();
@@ -53,14 +53,14 @@ namespace Script.Stack
 
         private void Update()
         {
-            if (stackNumber < 30 && _activeCoroutine == null) _activeCoroutine = StartCoroutine(SpawnObjectsInTime());
+            if (stackNumber < 30 && activeCoroutine == null) activeCoroutine = StartCoroutine(SpawnObjectsInTime());
         }
 
         private IEnumerator SpawnObjectsInTime()
         {
             yield return new WaitForSeconds(2f);
             RandomLocation();
-            _activeCoroutine = null;
+            activeCoroutine = null;
         } //RandomLocation in seconds.
 
 

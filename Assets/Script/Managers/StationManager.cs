@@ -11,8 +11,8 @@ namespace Script.Managers
         public GameObject deliverStation;
         public GameObject upgradeStation;
 
-        private Vector3 _deliverVector;
-        private Vector3 _upgradeVector;
+        private Vector3 deliverVector;
+        private Vector3 upgradeVector;
 
         private void Awake()
         {
@@ -22,10 +22,10 @@ namespace Script.Managers
                 Destroy(gameObject);
         }
 
-        private void Start()
+        /*private void Start()
         {
-            _deliverVector = deliverStation.transform.position;
-            _upgradeVector = upgradeStation.transform.position;
+            deliverVector = deliverStation.transform.position;
+            upgradeVector = upgradeStation.transform.position;
         }
 
         private void Update()
@@ -41,13 +41,13 @@ namespace Script.Managers
 
         private void UpgradeDistance()
         {
-            var distance = Vector3.Distance(player.transform.position, _upgradeVector);
+            var distance = Vector3.Distance(player.transform.position, upgradeVector);
             CanvasManager.Instance.CanvasUpgradeStation = distance <= 10f;
         }
         private void DeliverDistance()
         {
-            var distance = Vector3.Distance(player.transform.position, _deliverVector);
+            var distance = Vector3.Distance(player.transform.position, deliverVector);
             CanvasManager.Instance.CanvasDeliverStation = distance <= 10f;
-        }
+        }*/
     }
 }
