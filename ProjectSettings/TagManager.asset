@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sea
   - Holder
+  - HoldController
   layers:
   - Default
   - TransparentFX

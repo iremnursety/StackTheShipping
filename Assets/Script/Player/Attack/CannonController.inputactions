@@ -1,0 +1,33 @@
+{
+    "name": "CannonController",
+    "maps": [
+        {
+            "name": "Cannon",
+            "id": "637c8a3c-6382-42ad-a32c-322b1e1845ee",
+            "actions": [
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "0061733b-a953-44e1-bcde-63794fad575a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50d600bd-b913-4998-b6c5-94ba2e6b521e",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

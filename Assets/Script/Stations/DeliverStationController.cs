@@ -1,6 +1,5 @@
 using System.Globalization;
 using Script.Managers;
-using Script.Player;
 using TMPro;
 using UnityEngine;
 
@@ -8,35 +7,33 @@ namespace Script.Stations
 {
     public class DeliverStationController : MonoBehaviour
     {
-        [SerializeField] private HoldController holdController;
         [SerializeField] private float timer;
         [SerializeField] private bool staying;
         [SerializeField] private TextMeshProUGUI timerText;
 
         private void Awake()
         {
-            holdController = FindObjectOfType<HoldController>();
             timerText.gameObject.SetActive(false);
         }
 
         public void Deliver()
         {
-            holdController.EmptyHolder();
+            StackManager.Instance.Deliver();
             Staying = false;
             TimerActive = false;
             timer = 3f;
-        }
+        } //Deliver Stacks and set staying and timer back.
 
         private bool TimerActive
         {
             set => timerText.gameObject.SetActive(value);
-        }
+        } //Canvas Text Timer Set
 
         private bool Staying
         {
             get => staying;
             set => staying = value;
-        }
+        } //Staying get and set.
 
 
         private void OnTriggerEnter(Collider other)
@@ -48,7 +45,7 @@ namespace Script.Stations
             Staying = true;
             timer = 3f;
             TimerActive = true;
-        }
+        } //OnTriggerEnter for player Deliver Stacks.
 
         private void OnTriggerStay(Collider other)
         {
@@ -58,7 +55,7 @@ namespace Script.Stations
             if (timer > 0) return;
 
             Deliver();
-        }
+        } //OnTriggerStay for player Deliver Stacks.
 
         private void OnTriggerExit(Collider other)
         {
@@ -66,15 +63,19 @@ namespace Script.Stations
             if (!other.CompareTag("Holder")) return;
             Staying = false;
             TimerActive = false;
-        }
+        } //OnTriggerExit for player Deliver Stacks.
 
         private void Update()
         {
-            if (Staying)
-            {
-                timer -= 1 * Time.deltaTime;
-                timerText.text = Mathf.RoundToInt(timer).ToString(CultureInfo.InvariantCulture);
-            }
+            if (!Staying)
+                return;
+            Timer();
+        }
+
+        private void Timer()
+        {
+            timer -= 1 * Time.deltaTime;
+            timerText.text = Mathf.RoundToInt(timer).ToString(CultureInfo.InvariantCulture);
         }
     }
 }
