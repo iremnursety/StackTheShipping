@@ -773,7 +773,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199037040968479160}
-  m_LocalRotation: {x: 0.2611751, y: 1e-45, z: -0, w: 0.96529144}
+  m_LocalRotation: {x: 0.2611751, y: -3e-45, z: 1e-45, w: 0.96529144}
   m_LocalPosition: {x: 0, y: 9.49, z: -7.6899986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1183,7 +1183,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199037041382452634}
-  m_LocalRotation: {x: 0.2611751, y: 1e-45, z: -0, w: 0.96529144}
+  m_LocalRotation: {x: 0.2611751, y: -3e-45, z: 1e-45, w: 0.96529144}
   m_LocalPosition: {x: 0, y: 9.49, z: -7.6899986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1305,6 +1305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 0}
+  cannonBullet: {fileID: 0}
+  cannonBulletPower: 0
 --- !u!1 &199037041533525638
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,15 +7,17 @@ namespace Script.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent navMeshAgent;
-
+       
         private void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
+
         public void SetDestination(Vector3 destinationPoint)
         {
             navMeshAgent.destination = destinationPoint;
         }
+        
     }
 }

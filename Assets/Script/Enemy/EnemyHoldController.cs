@@ -4,24 +4,24 @@ using Script.Managers;
 using Script.Stack;
 using UnityEngine;
 
-namespace Script.Player
+namespace Script.Enemy
 {
-    public class HoldController : MonoBehaviour
+    public class EnemyHoldController : MonoBehaviour
     {
         [SerializeField] private GameObject playerCollider;
         [SerializeField] private int maxHold;
         [SerializeField] private int holdingStack;
-        public List<StackController> stackControllers = new List<StackController>();
+        public List<StackController> enemyStackController = new List<StackController>();
         private Coroutine activeCoroutine;
         private int holdValue;
         public bool canHold;
-    
+
 
         private void Start()
         {
             //TODO: Save and reload and game start.
             CanHoldValue = maxHold;
-            canHold= true;
+            StackManager.Instance.CanHold = true;
         }
 
         public void HoldStack(StackController stack)
@@ -39,17 +39,8 @@ namespace Script.Player
             CanHoldValue -= 1;
             holdingStack += 1;
 
-            StackControllerAddList(stack);
-            //AddList=stack;
+            EnemyAddList = stack;
         } //Add stack on holding list and change scale and positions for set on ship.
-        // private StackController AddList
-        // {
-        //     set => stackControllers.Add(value);
-        // }
-        private void StackControllerAddList(StackController stacks)
-        {
-            stackControllers.Add(stacks);
-        }
 
         public void EmptyHolder()
         {
@@ -63,13 +54,13 @@ namespace Script.Player
             if (stackCount <= 0) yield break;
             for (var i = stackCount - 1; i > -1; i--)
             {
-                var tempStack = stackControllers[i];
+                var tempStack = enemyStackController[i];
                 MoneyManager.Instance.Money = tempStack.stackMoney * stackCount;
                 Destroy(tempStack.gameObject);
                 yield return new WaitForSeconds(0.2f);
             }
 
-            stackControllers.Clear();
+            enemyStackController.Clear();
             playerCollider.SetActive(true);
 
             CanHoldValue = maxHold;
@@ -79,6 +70,11 @@ namespace Script.Player
             activeCoroutine = null;
         } //Coroutine for destroy stacks and adding money to Money Manager.
 
+        public StackController EnemyAddList
+        {
+            set => enemyStackController.Add(value);
+        }
+
         private int CanHoldValue
         {
             get => holdValue;
@@ -86,10 +82,8 @@ namespace Script.Player
             {
                 holdValue = value;
                 if (holdValue == 0)
-                    canHold = false;
+                    canHold= false;
             }
         } //Get set for holding value on ship.
-
-        
     }
 }

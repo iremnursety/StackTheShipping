@@ -8,17 +8,21 @@ namespace Script.Player.Attack
     {
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private GameObject cannonBullet;
+        private float cannonBulletPower;
         private float rotationSpeed;
         private Vector3 playerVelocity;
         private Quaternion zeroRotation;
         private InputActionAsset asset;
-        private Coroutine activeCoroutine;
+        private Coroutine activeCoroutineReset;
+        private Coroutine activeCoroutineAttack;
 
         private void Start()
         {
             rotationSpeed = 10f;
+            cannonBulletPower = 30f;
             playerInput = GetComponent<PlayerInput>();
             zeroRotation = Quaternion.Euler(0f, 0f, 0f);
+            
         }
 
 
@@ -29,10 +33,10 @@ namespace Script.Player.Attack
 
         private void Rotate()
         {
-            if (activeCoroutine != null)
+            if (activeCoroutineReset != null)
             {
                 StopCoroutine(ResetButton());
-                activeCoroutine = null;
+                activeCoroutineReset = null;
             }
             var input = playerInput.actions["Rotation"].ReadValue<Vector2>();
             if (input == Vector2.zero) return;
@@ -44,12 +48,24 @@ namespace Script.Player.Attack
 
         public void Attack()
         {
-           
+            activeCoroutineAttack ??= StartCoroutine(AttackButton());
         }
+
+        private IEnumerator AttackButton()
+        {
+            var bullet = Instantiate(cannonBullet,gameObject.transform);
+            var bulletRig = bullet.GetComponent<Rigidbody>();
+            
+            bulletRig.AddForce(bullet.transform.forward*cannonBulletPower,ForceMode.Impulse);
+            
+            yield return new WaitForSeconds(2f);
+            //Destroy(bullet);
+            activeCoroutineAttack = null;
+        }//Create a clone of the bullet and add force on the bullet.
 
         public void Reset()
         {
-            activeCoroutine ??= StartCoroutine(ResetButton());
+            activeCoroutineReset ??= StartCoroutine(ResetButton());
         } //Cannon Rotation Reset Button Interaction
 
 
@@ -66,7 +82,7 @@ namespace Script.Player.Attack
                 break;
             }
             yield return new WaitForSeconds(0.5f);
-            activeCoroutine = null;
+            activeCoroutineReset = null;
         } //Coroutine for reset cannon rotation with Slerp
     }
 }

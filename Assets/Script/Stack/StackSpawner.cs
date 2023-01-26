@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Enemy;
 using Script.Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -15,7 +17,7 @@ namespace Script.Stack
         [SerializeField] private List<GameObject> stackPrefabList = new List<GameObject>();
         
         [SerializeField] private float range, randomValue, minRandom, maxRandom;
-        [SerializeField] private HoldController holdController;
+        [FormerlySerializedAs("playerHoldController")] [SerializeField] private HoldController holdController;
         [SerializeField] private Vector3 tempVector;
         [SerializeField] private List<float> tempValueList = new List<float>();
         [SerializeField] private List<StackController> stackList = new List<StackController>();
@@ -111,11 +113,14 @@ namespace Script.Stack
             tempObj.stackNumber = stackNumber;
         } //Spawn Stack on random pos value. Change parent and name. Add on List.
 
-        public void DeleteStack(int stackIndex)
+        public void DeleteStack(int stackIndex,HoldController gameObj)
         {
             var tempStack = stackList[stackIndex];
-            holdController.HoldStack(tempStack);
-            stackList.RemoveAt(stackIndex);
+           
+                Debug.Log(gameObj.transform.parent.tag+","+gameObj);
+                gameObj.HoldStack(tempStack);
+                stackList.RemoveAt(stackIndex);
+                
             for (var i = stackIndex; i < stackList.Count; i++)
             {
                 stackList[i].stackNumber = i;

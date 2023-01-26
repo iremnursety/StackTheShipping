@@ -18,7 +18,7 @@ namespace Script.Stations
 
         public void Deliver()
         {
-            StackManager.Instance.Deliver();
+            StackManager.Instance.PlayerDeliver();
             Staying = false;
             TimerActive = false;
             timer = 3f;
@@ -36,8 +36,14 @@ namespace Script.Stations
         } //Staying get and set.
 
 
-        private void OnTriggerEnter(Collider other)
+        /*private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("Enemy"))
+            {
+                //var stackEnemyCount = StackManager.Instance.stackController.Count;
+                StackManager.Instance.DeliverForEnemy(other.gameObject);
+                return;
+            }
             var stackCount = StackManager.Instance.stackController.Count;
             if (stackCount == 0) return;
             Debug.Log(other.tag + "Enter");
@@ -55,7 +61,7 @@ namespace Script.Stations
             if (timer > 0) return;
 
             Deliver();
-        } //OnTriggerStay for player Deliver Stacks.
+        }*/ //OnTriggerStay for player Deliver Stacks.
 
         private void OnTriggerExit(Collider other)
         {

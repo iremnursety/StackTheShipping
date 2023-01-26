@@ -9,7 +9,9 @@ namespace Script.Managers
     {
         public static StackManager Instance { get; private set; }
         private HoldController holdController;
-        public List<StackController> stackController = new List<StackController>();
+        
+        //public List<StackController> playerStackController = new List<StackController>();
+        //public List<StackController> enemyStackController = new List<StackController>();
         public int maxCount;
         public bool shipCanHold;
         
@@ -29,14 +31,32 @@ namespace Script.Managers
             set => shipCanHold = value;
         } //Get & Set if ship can hold or not.
 
-        public StackController AddList
-        {
-            set => stackController.Add(value);
-        }
+        // public StackController PlayerAddList
+        // {
+        //     set => playerStackController.Add(value);
+        // }
+        // public StackController EnemyAddList
+        // {
+        //     set => enemyStackController.Add(value);
+        // }
         //TODO: Move HoldController clear to StackManager
-        public void Deliver()
+        public void PlayerDeliver()
         {
             holdController.EmptyHolder();
+        }
+        public void DeliverForEnemy(GameObject enemyDeliver)
+        {
+            var enemyHolder = enemyDeliver.GetComponent<HoldController>();
+            enemyHolder.EmptyHolder();
+        }
+
+        public void PlayerStackCount()
+        {
+            
+        }
+        public void EnemyStackCount()
+        {
+            
         }
     }
     
